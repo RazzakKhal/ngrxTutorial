@@ -37,7 +37,7 @@ export class AppComponent implements OnInit{
   }
 
   ChangeNameWhenButtonClick(){
-    this.store.dispatch(httpActions.fetchLaunched())
+    this.store.dispatch(initAction())
   }
 
 }

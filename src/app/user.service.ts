@@ -11,7 +11,7 @@ export class UserService implements OnInit{
   }
 
   getDataUser(){
-    return this.http.get('assets/data.json');
+    return this.http.get('assets/ata.json');
 
   }
 }

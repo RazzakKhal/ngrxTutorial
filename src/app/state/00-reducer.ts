@@ -12,18 +12,24 @@ const initialState : RootState = {
 export const metaReducers : MetaReducer[] = [log];
 
 export const rootReducer = createReducer(initialState,
-   on(initAction, (state) => {
 
+on(initAction, (state, props) => {
+  console.log('init action est declenché lol', props)
   return {
-    ...state,
-    isInitActionEnRoute : true
+    ...state
   }
 })
 ,on(httpActions.fetchSuccess, (state, props) => {
   console.log('voici les users', props)
   return {
     ...state,
-    user : [{prenom : "tarik"}]
+    user : props.users
+  }
+}),
+on(httpActions.fetchFailure, (state, props) => {
+  console.log('erreur généré par fetchFailure',props.error.message)
+  return {
+    ...state
   }
 })
 
@@ -32,12 +38,7 @@ export const rootReducer = createReducer(initialState,
 
 function log(reducer : ActionReducer<RootState, Action>){
   return (state :RootState, action : Action) => {
-    console.log('state before', state)
-    console.log('action before', action)
-
     const nextState = reducer(state, action)
-    console.log("nouvel etat", nextState)
-    console.log('nouvelle action', action)
     return nextState;
   }
 }
